@@ -1,0 +1,37 @@
+﻿<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TaskBoardApp.Views.MainPage"
+             x:Name="TaskPage"
+             Title="TaskBoardApp">
+
+    <VerticalStackLayout Padding="20" Spacing="15">
+
+        <Label Text="TaskBoardApp" 
+               FontSize="32"
+               HorizontalOptions="Center" />
+
+        <Entry Placeholder="Entrez une nouvelle tâche"
+               Text="{Binding NewTaskTitle}" />
+
+        <Button Text="Ajouter" 
+                Command="{Binding AddTaskCommand}" />
+
+        <CollectionView ItemsSource="{Binding Tasks}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <StackLayout Orientation="Horizontal" Spacing="10" Padding="5">
+                        <CheckBox IsChecked="{Binding IsCompleted, Mode=TwoWay}" />
+                        <Label Text="{Binding Title}" VerticalOptions="Center" />
+                        <Button Text="❌" 
+                                Command="{Binding BindingContext.RemoveTaskCommand, Source={x:Reference TaskPage}}"
+                                CommandParameter="{Binding .}" 
+                                BackgroundColor="Transparent"
+                                Padding="0"
+                                FontSize="16" />
+                    </StackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+    </VerticalStackLayout>
+</ContentPage>

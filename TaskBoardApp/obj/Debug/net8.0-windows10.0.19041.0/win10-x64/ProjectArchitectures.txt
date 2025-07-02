@@ -1,0 +1,1 @@
+D:\ProjetMaui\TaskBoardApp\TaskBoardApp\TaskBoardApp.csproj;x64
