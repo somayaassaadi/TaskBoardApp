@@ -1,0 +1,21 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModels="clr-namespace:TaskBoardApp.ViewModels"
+             x:Class="TaskBoardApp.Views.StatsPage"
+             Title="Statistiques">
+
+    <ContentPage.BindingContext>
+        <viewModels:StatsViewModel />
+    </ContentPage.BindingContext>
+
+    <VerticalStackLayout Padding="20" Spacing="15">
+        <Label Text="Statistiques des Tâches" FontSize="28" HorizontalOptions="Center" />
+
+        <Label Text="{Binding TotalTasks, StringFormat='Nombre total : {0}'}" FontSize="20" />
+        <Label Text="{Binding CompletionRate, StringFormat='Complétion : {0:F1}%'}" FontSize="20" />
+
+        <Button Text="Recharger" Command="{Binding LoadStatsCommand}" />
+
+        <Button Text="Retour" Clicked="OnBackClicked" />
+    </VerticalStackLayout>
+</ContentPage>

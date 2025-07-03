@@ -1,10 +1,16 @@
-﻿namespace TaskBoardApp
+﻿
+using TaskBoardApp.Services;
+
+namespace TaskBoardApp
 {
     public partial class App : Application
     {
-        public App()
+        public App(IServiceProvider serviceProvider)
         {
             InitializeComponent();
+
+            // ✅ initialise ton helper pour le DI
+            ServiceHelper.ServiceProvider = serviceProvider;
 
             MainPage = new AppShell();
         }
