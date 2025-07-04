@@ -47,15 +47,16 @@ namespace TaskBoardApp.ViewModels
         {
             var platform = DeviceInfo.Platform;
             if (platform == DevicePlatform.Android)
-                PlatformMessage = "Bienvenue sur Android 🟢";
+                PlatformMessage = "Bienvenue sur Android ";
             else if (platform == DevicePlatform.iOS)
-                PlatformMessage = "Bienvenue sur iOS 🍏";
+                PlatformMessage = "Bienvenue sur iOS ";
             else if (platform == DevicePlatform.WinUI)
-                PlatformMessage = "Bienvenue sur Windows 💻";
+                PlatformMessage = "Bienvenue sur Windows ";
             else
                 PlatformMessage = "Bienvenue sur une autre plateforme.";
         }
 
+        //charge la DB et remplit la liste affichée
         private async void LoadSavedTasks()
         {
             // Afficher un message pour indiquer que le chargement des tâches commence
@@ -93,7 +94,7 @@ namespace TaskBoardApp.ViewModels
             // Vérification si l'appareil est connecté à Internet
             if (_connectivityService.IsConnected)
             {
-                // ✅ EN LIGNE
+                //  EN LIGNE
                 // Sauvegarder la tâche dans la base de données
                 await _offlineTaskService.SaveOfflineTask(task);
 
@@ -108,7 +109,7 @@ namespace TaskBoardApp.ViewModels
             }
             else
             {
-                // ✅ HORS-LIGNE
+                //  HORS-LIGNE
                 // Sauvegarder seulement dans la base de données
                 await _offlineTaskService.SaveOfflineTask(task);
 
@@ -126,10 +127,18 @@ namespace TaskBoardApp.ViewModels
         [RelayCommand]
         private async Task RemoveTask(TaskItem task)
         {
-            if (task != null && Tasks.Contains(task))
+            if (task == null)
+                return;
+
+            Tasks.Remove(task);
+
+            if (task.Id != 0)
             {
-                Tasks.Remove(task);
                 await _offlineTaskService.DeleteTask(task);
+            }
+            else
+            {
+               
             }
         }
 

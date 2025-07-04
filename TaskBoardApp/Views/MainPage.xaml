@@ -1,44 +1,78 @@
-﻿<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="TaskBoardApp.Views.MainPage"
-             Title="TaskBoardApp">
+﻿<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="TaskBoardApp.Views.MainPage"
+    Title="TaskBoardApp">
 
-    <VerticalStackLayout Padding="20" Spacing="15">
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="20">
 
-        <Label Text="TaskBoardApp" 
-               FontSize="32"
-               HorizontalOptions="Center" />
+            <!-- App Title -->
+            <Label Text="🗂️ TaskBoardApp"
+                   FontSize="36"
+                   FontAttributes="Bold"
+                   TextColor="#512DA8"
+                   HorizontalOptions="Center" />
 
-        <Label Text="{Binding PlatformMessage}"
-               FontAttributes="Bold"
-               HorizontalOptions="Center"
-               TextColor="Gray"/>
+            <!-- Platform Message -->
+            <Label Text="{Binding PlatformMessage}"
+                   FontAttributes="Italic"
+                   HorizontalOptions="Center"
+                   TextColor="Gray" />
 
-        <Entry x:Name="TaskEntry"
-               Placeholder="Entrez une nouvelle tâche"
-               Text="{Binding NewTaskTitle}" />
+            <!-- Entry and Add Button -->
+            <Frame BorderColor="#CCCCCC" CornerRadius="12" Padding="15" HasShadow="True">
+                <VerticalStackLayout Spacing="10">
+                    <Entry x:Name="TaskEntry"
+                           Placeholder="Entrez une nouvelle tâche..."
+                           Text="{Binding NewTaskTitle}"
+                           FontSize="16"/>
+                    <Button Text="✅ Ajouter la tâche"
+                            Command="{Binding AddTaskCommand}"
+                            BackgroundColor="#512DA8"
+                            TextColor="White"
+                            CornerRadius="8"/>
+                </VerticalStackLayout>
+            </Frame>
 
-        <Button Text="Ajouter" 
-                Command="{Binding AddTaskCommand}" />
+            <!-- Stats Button -->
+            <Button Text="📊 Voir les statistiques"
+                    Command="{Binding GoToStatsCommand}"
+                    BackgroundColor="#D1C4E9"
+                    TextColor="#512DA8"
+                    CornerRadius="8"/>
 
-        <Button Text="Voir les statistiques"
-                Command="{Binding GoToStatsCommand}"
-                BackgroundColor="LightGray"/>
+            <!-- Tasks List -->
+            <Label Text="📋 Mes Tâches"
+                   FontSize="20"
+                   FontAttributes="Bold"
+                   TextColor="#512DA8" />
 
-        <CollectionView ItemsSource="{Binding Tasks}">
-            <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <StackLayout Orientation="Horizontal" Spacing="10">
-                        <CheckBox IsChecked="{Binding IsCompleted}" />
-                        <Label Text="{Binding Title}" VerticalOptions="Center" />
-                        <Button Text="Supprimer"
-                                Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.RemoveTaskCommand}"
-                                CommandParameter="{Binding .}"
-                                FontSize="10" />
-                    </StackLayout>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
+            <CollectionView ItemsSource="{Binding Tasks}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame BorderColor="#DDDDDD" CornerRadius="12" Padding="10" Margin="5" HasShadow="True">
+                            <HorizontalStackLayout Spacing="10" VerticalOptions="Center">
+                                <CheckBox IsChecked="{Binding IsCompleted}" />
+                                <Label Text="{Binding Title}"
+                                       VerticalOptions="Center"
+                                       FontSize="16"
+                                       LineBreakMode="WordWrap"
+                                       HorizontalOptions="StartAndExpand" />
+                                <Button Text="🗑️"
+                                        BackgroundColor="#FFCDD2"
+                                        TextColor="Red"
+                                        CornerRadius="8"
+                                        Padding="5"
+                                        FontSize="12"
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.RemoveTaskCommand}"
+                                        CommandParameter="{Binding .}" />
+                            </HorizontalStackLayout>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
 
-    </VerticalStackLayout>
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>

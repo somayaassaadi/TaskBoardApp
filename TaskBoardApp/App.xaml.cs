@@ -9,7 +9,6 @@ namespace TaskBoardApp
         {
             InitializeComponent();
 
-            // ✅ initialise ton helper pour le DI
             ServiceHelper.ServiceProvider = serviceProvider;
 
             MainPage = new AppShell();
