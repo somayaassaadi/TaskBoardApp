@@ -8,7 +8,7 @@
         <VerticalStackLayout Padding="20" Spacing="20">
 
             <!-- App Title -->
-            <Label Text="🗂️ TaskBoardApp"
+            <Label Text="TaskBoardApp"
                    FontSize="36"
                    FontAttributes="Bold"
                    TextColor="#512DA8"
@@ -27,7 +27,7 @@
                            Placeholder="Entrez une nouvelle tâche..."
                            Text="{Binding NewTaskTitle}"
                            FontSize="16"/>
-                    <Button Text="✅ Ajouter la tâche"
+                    <Button Text="Ajouter la tâche"
                             Command="{Binding AddTaskCommand}"
                             BackgroundColor="#512DA8"
                             TextColor="White"
